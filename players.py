@@ -10,7 +10,7 @@
 # Licence:     GNU General Public License (see text file named COPYING)
 #-------------------------------------------------------------------------------
 
-
+import sys
 
 class character:
     """An individual family member.
@@ -32,7 +32,6 @@ class character:
         self.name = ""
         self.age  = 0
         self.gender = "male"
-        self.isAlive = False
         self.description = ""
         self.money = 0
 
@@ -67,15 +66,18 @@ class family:
 
         Methods:
             addMember(character, isLeader (boolean))
-            addNewMember(name (str), age (int), gender (str), isAlive (boolean), isLeader(boolean))
+            addNewMember(name (str), age (int), gender (str), money(int), isAlive (boolean), isLeader(boolean))
             makeLeader(character)
             payCharacter(playerName (character), amount (int)) -> amount left, -1 if insufficient funds
             payFamily(familyName (family), amount (int)) -> amount left, -1 if insufficient funds
+            getMemberByName(name (str)) -> character whose name matches, character with the name "ERROR" if it was not found
         """
 
-    def __init__(self,name):
+    def __init__(self,name,money):
         self.members = []
+        self.deadMembers = []
         self.name = name
+        self.treasury = money
 
     def addMember(self,character,isLeader):
         self.members.append(character)
@@ -83,15 +85,17 @@ class family:
         if isLeader == True:
             self.makeLeader(self.members[len(self.members)-1])
 
-    def addNewMember(self,name, age, gender,isAlive,money,isLeader,):
+    def addNewMember(self,name, age, gender,money,isAlive,isLeader,):
         new = character()
         new.name = name
         new.age = age
         new.gender= gender
-        new.isAlive = isAlive
         new.money = money
 
-        self.members.append(new)
+        if isAlive == True:
+            self.members.append(new)
+        else:
+            self.deadMembers.append(new)
 
         del new
 
@@ -116,6 +120,17 @@ class family:
             self.treasury = self.treasury- amount
             family.treasury = family.treasury + amount
             return self.treasury
+
+    def getMemberByName(self,name):
+        for x in self.members:
+            if x.name == name:
+                return x
+
+        error = character()
+        error.name = "ERROR"
+        return error
+
+
 
 #-------------------------------------------------------------------------------
 
