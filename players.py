@@ -20,12 +20,14 @@ class character:
         age             (int)
         gender          (str)
         isFamilyLeader  (boolean)
+        description     (str)
         """
 
     name            =   ""
     age             =   0
     gender          =   "male"
     isAlive         =   False
+    description     =   ""
 
     def __init__(self):
         """Initializes and returns a new FamilyMember object.
@@ -35,6 +37,7 @@ class character:
         self.age  = 0
         self.gender = "male"
         self.isAlive = False
+        self.description = ""
 
 
 #-------------------------------------------------------------------------------
@@ -77,6 +80,8 @@ class family:
         new.isAlive = isAlive
 
         self.members.append(new)
+
+        del new
 
         if isLeader == True:
             self.makeLeader(self.members[len(self.members)-1])
