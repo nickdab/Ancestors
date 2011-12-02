@@ -21,6 +21,10 @@ class character:
         gender          (str)
         isFamilyLeader  (boolean)
         description     (str)
+
+    Methods:
+        payCharacter(playerName (character),amount (int)) -> amount left, -1 if insufficient funds
+        payFamily(familyName (family), amount(int)) -> amount left, -1 if insufficient funds
         """
 
     name            =   ""
@@ -28,6 +32,7 @@ class character:
     gender          =   "male"
     isAlive         =   False
     description     =   ""
+    money           =   0
 
     def __init__(self):
         """Initializes and returns a new FamilyMember object.
@@ -38,6 +43,24 @@ class character:
         self.gender = "male"
         self.isAlive = False
         self.description = ""
+        self.money = 0
+
+    def payCharacter(self,playerName,amount):
+        if (amount > money):
+            return -1
+        else:
+            self.money = self.money - amount
+            playerName.money = playerName.money + amount
+            return self.money
+
+    def payFamily(self,familyName,amount):
+        if (amount > money):
+            return -1
+        else:
+            self.money = self.money - amount
+            familyName.money = familyName.money + amount
+            return money
+
 
 
 #-------------------------------------------------------------------------------
@@ -48,6 +71,7 @@ class family:
         Member Variables:
             name            (str)
             members         (["character" objects])
+            treasury        (int)
             leader          ("character" object)
 
         Methods:
@@ -57,6 +81,7 @@ class family:
         """
     name    = ""
     members = []
+    treasury = 0
 
     def __init__(self,name):
         self.members = []
@@ -65,11 +90,10 @@ class family:
     def addMember(self,character,isLeader):
         self.members.append(character)
 
-
         if isLeader == True:
             self.makeLeader(self.members[len(self.members)-1])
 
-    def addNewMember(self,name, age, gender,isAlive,isLeader):
+    def addNewMember(self,name, age, gender,isAlive,money,isLeader,):
         """Creates a new family member with all of the attributes defined.
 
             """
@@ -78,6 +102,7 @@ class family:
         new.age = age
         new.gender= gender
         new.isAlive = isAlive
+        new.money = money
 
         self.members.append(new)
 
@@ -88,6 +113,22 @@ class family:
 
     def makeLeader(self,character):
         self.leader = character
+
+    def payCharacter(self,character,amount):
+        if (amount > self.treasury):
+            return -1
+        else:
+            self.treasury= self.treasury - amount
+            character.money = character.money + amount
+            return self.treasury
+
+    def payFamily(self,family,amount):
+        if (amount > self.treasury):
+            return -1
+        else:
+            self.treasury = self.treasury- amount
+            family.treasury = family.treasury + amount
+            return self.treasury
 
 #-------------------------------------------------------------------------------
 
