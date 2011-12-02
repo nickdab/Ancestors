@@ -2,9 +2,10 @@
 # Name:         players
 # Purpose:      This contains the code to create and manage families.
 #
-# Author:      Nick Birney
+# Author:       Nick Birney
 #
-# Created:     2 Dec. 2011
+# Created:      2 Dec. 2011
+# Updated:      2 Dec. 2011
 # Copyright:   (c) Nick Birney 2011
 # Licence:     GNU General Public License (see text file named COPYING)
 #-------------------------------------------------------------------------------
@@ -41,6 +42,15 @@ class character:
 class family:
     """The family unit.
 
+        Member Variables:
+            name            (str)
+            members         (["character" objects])
+            leader          ("character" object)
+
+        Methods:
+            addMember(character, isLeader (boolean))
+            addNewMember(name (str), age (int), gender (str), isAlive (boolean), isLeader(boolean))
+            makeLeader(character)
         """
     name    = ""
     members = []
@@ -51,6 +61,7 @@ class family:
 
     def addMember(self,character,isLeader):
         self.members.append(character)
+
 
         if isLeader == True:
             self.makeLeader(self.members[len(self.members)-1])
