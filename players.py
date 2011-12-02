@@ -47,7 +47,7 @@ class family:
 
     def __init__(self,name):
         self.members = []
-        self.name = ""
+        self.name = name
 
     def addMember(self,character,isLeader):
         self.members.append(character)
