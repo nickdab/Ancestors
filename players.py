@@ -5,7 +5,7 @@
 # Author:       Nick Birney
 #
 # Created:      2 Dec. 2011
-# Updated:      2 Dec. 2011
+# Updated:      3 Dec. 2011
 # Copyright:   (c) Nick Birney 2011
 # Licence:     GNU General Public License (see text file named COPYING)
 #-------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ class character:
         self.money = 0
 
     def payCharacter(self,playerName,amount):
-        if (amount > money):
+        if (amount > self.money):
             return -1
         else:
             self.money = self.money - amount
@@ -44,12 +44,12 @@ class character:
             return self.money
 
     def payFamily(self,familyName,amount):
-        if (amount > money):
+        if (amount > self.money):
             return -1
         else:
             self.money = self.money - amount
-            familyName.money = familyName.money + amount
-            return money
+            familyName.treasury = familyName.treasury + amount
+            return self.money
 
 
 
@@ -121,6 +121,11 @@ class family:
             family.treasury = family.treasury + amount
             return self.treasury
 
+    def killMember(self,member):
+        self.deadMembers.append(member) 
+        
+        return self.members.pop(self.members.index(member))
+
     def getMemberByName(self,name):
         for x in self.members:
             if x.name == name:
@@ -135,7 +140,19 @@ class family:
 #-------------------------------------------------------------------------------
 
 def main():
-    pass
+    newFam = family("Birney",500000)
+    newFam.addNewMember("Nick",22,"male",200,True,False)
+    newFam.addNewMember("Mike",57,"male",2000,True,True)
+    newFam.addNewMember("Jess",18,"female",100,True,False)
+    print(newFam.getMemberByName("Jess").name)
+    newFam.payCharacter(newFam.getMemberByName("Mike"),5000)
+    newFam.getMemberByName("Nick").payFamily(newFam,100)
+    newFam.getMemberByName("Jess").payCharacter(newFam.getMemberByName("Nick"),50)
+    print(newFam.treasury)
+    print(newFam.getMemberByName("Nick").money)
+    print(newFam.getMemberByName("Mike").money)
+    print(newFam.getMemberByName("Jess").money)
+    exit()
 
 if __name__ == '__main__':
     main()
