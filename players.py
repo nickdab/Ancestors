@@ -22,6 +22,8 @@ class character:
         isAlive         (boolean)
         description     (str)
         money           (int)
+        role            (str)
+        generation      (int)
 
     Methods:
         payCharacter(playerName (character),amount (int)) -> amount left, -1 if insufficient funds
@@ -34,6 +36,8 @@ class character:
         self.gender = "male"
         self.description = ""
         self.money = 0
+        self.role = ""
+        self.generation = 0
 
     def payCharacter(self,playerName,amount):
         if (amount > self.money):
@@ -85,12 +89,14 @@ class family:
         if isLeader == True:
             self.makeLeader(self.members[len(self.members)-1])
 
-    def addNewMember(self,name, age, gender,money,isAlive,isLeader,):
+    def addNewMember(self,name, age, gender,money,role,generation,isAlive,isLeader):
         new = character()
         new.name = name
         new.age = age
         new.gender= gender
         new.money = money
+        new.role = role
+        new.generation = generation
 
         if isAlive == True:
             self.members.append(new)
@@ -122,8 +128,8 @@ class family:
             return self.treasury
 
     def killMember(self,member):
-        self.deadMembers.append(member) 
-        
+        self.deadMembers.append(member)
+
         return self.members.pop(self.members.index(member))
 
     def getMemberByName(self,name):
@@ -140,19 +146,7 @@ class family:
 #-------------------------------------------------------------------------------
 
 def main():
-    newFam = family("Birney",500000)
-    newFam.addNewMember("Nick",22,"male",200,True,False)
-    newFam.addNewMember("Mike",57,"male",2000,True,True)
-    newFam.addNewMember("Jess",18,"female",100,True,False)
-    print(newFam.getMemberByName("Jess").name)
-    newFam.payCharacter(newFam.getMemberByName("Mike"),5000)
-    newFam.getMemberByName("Nick").payFamily(newFam,100)
-    newFam.getMemberByName("Jess").payCharacter(newFam.getMemberByName("Nick"),50)
-    print(newFam.treasury)
-    print(newFam.getMemberByName("Nick").money)
-    print(newFam.getMemberByName("Mike").money)
-    print(newFam.getMemberByName("Jess").money)
-    exit()
+    pass
 
 if __name__ == '__main__':
     main()
